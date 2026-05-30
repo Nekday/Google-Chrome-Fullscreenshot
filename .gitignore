@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# Captured screenshots (if any land in the repo folder during testing)
+Screenshot_*.png
+screenshot-*.png

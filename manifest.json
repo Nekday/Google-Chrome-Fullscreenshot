@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Full Page Screenshot",
+  "version": "1.2",
+  "description": "Captures a full-page screenshot of the current tab with a single keyboard shortcut and saves it to Downloads.",
+
+  "permissions": [
+    "debugger",
+    "downloads",
+    "tabs"
+  ],
+
+  "commands": {
+    "capture-full-page": {
+      "suggested_key": {
+        "default": "Alt+S",
+        "mac": "Alt+S"
+      },
+      "description": "Capture full page screenshot"
+    }
+  },
+
+  "background": {
+    "service_worker": "background.js"
+  }
+}
