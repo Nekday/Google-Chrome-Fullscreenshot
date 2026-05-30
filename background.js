@@ -1,5 +1,5 @@
 // background.js
-// Full Page Screenshot Extension  (v10 — v6 absolute-clip engine + sticky fix)
+// Full Page Screenshot Extension  (v11 — v10 + fail-fast guard for uncapturable pages)
 //
 // Captures a full-page screenshot of the active tab and saves it as a PNG.
 //
@@ -27,6 +27,27 @@ chrome.commands.onCommand.addListener(async (command) => {
 
   if (!tab?.id) {
     console.warn("Full Page Screenshot: no active tab found.");
+    return;
+  }
+
+  // ── Guard: reject uncapturable page types up front ──────────────────────
+  // Chrome blocks the debugger from attaching to its own internal pages
+  // (chrome://, chrome-extension://, devtools://, the Web Store, etc.) and to
+  // other browsers' internal schemes.  Rather than attempt the attach and fail
+  // mid-process with a confusing error, detect these here and stop cleanly with
+  // a clear message.  about:blank and a missing URL are also treated as
+  // uncapturable since there is nothing meaningful to capture.
+  const url = tab.url ?? "";
+  const blockedScheme = /^(chrome|chrome-extension|chrome-untrusted|devtools|edge|brave|opera|vivaldi|about|view-source|data):/i.test(url);
+  const isWebStore    = /^https?:\/\/chromewebstore\.google\.com/i.test(url) ||
+                        /^https?:\/\/chrome\.google\.com\/webstore/i.test(url);
+
+  if (!url || blockedScheme || isWebStore) {
+    console.warn(
+      "Full Page Screenshot: this page cannot be captured " +
+      "(browser-internal page, Web Store, or unsupported URL). " +
+      "Switch to a normal web page (http/https) and try again."
+    );
     return;
   }
 
