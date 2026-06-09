@@ -1,4 +1,4 @@
-# Full Page Screenshot — Chrome Extension
+# Full Page Screenshot — Chrome Extension (current as of 09 June 2026)
 
 A minimal, self-contained Chrome extension (Manifest V3) that captures a
 full-page screenshot of the active tab with a single keyboard shortcut and
@@ -40,6 +40,11 @@ non-visible portions alike.
 3. Enable **Developer mode** (toggle, top-right corner).
 4. Click **Load unpacked** and select the `full-page-screenshot` folder.
 5. The extension installs immediately.
+6. Set keypairs to initiate captures.  While the defaults are Mac "Option+s" and Win "Alt+s", sometimes Chrome requires the keypair to be set through the chrome://extensions page.  Also, you can set it to any key or key pair you choose.
+    A. Go to the extension page, select the "Details" button on the Full Page Screenshot tile.
+    B. Select "Keyboard shortcuts" from the upper left side of the page.
+    C. In the "Full Page Screenshot" tile, click the edit pencil, then type in any un-used
+       keyboard combination (I like option + s). Press the "update" button.
 
 ---
 
